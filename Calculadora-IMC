@@ -1,0 +1,48 @@
+import streamlit as st;
+
+#Título
+st.title("Calculadora IMC")
+
+#Header e SubHeader
+#st.header("alguma coisa")
+st.text("Desenvolvido por: Lorena")
+
+st.subheader("Para diagnosticar a obesidade, é preciso começar calculando o Índice de Massa Corporal (IMC).")
+
+#with st.form(key="include_cliente"):
+input_name = st.text_input(label="insira o seu nome:")
+input_peso = st.number_input(label="insira seu peso (KG)")
+status = st.radio("Selecione o formato da sua altura:",('cms','metros','feet'))
+if(status == 'cms'):
+        altura = st.number_input('Centímetros')
+        try:
+            bmi = input_peso/((altura/100)**2)
+        except:
+            st.text("Insira algum valor na 'altura'")
+elif(status == 'metros'):
+        altura = st.number_input('Metros')
+        try:
+            bmi = input_peso/(altura**2)
+        except:
+            st.text("Insira algum valor em 'peso'")
+else:
+        altura = st.number_input('Feet') #1 metro = 3.28
+        try:
+            bmi = input_peso/(((altura/3.28))**2)
+        except:
+            st.text ("Insira algum valor na 'altura'")
+if(st.button('Calcule IMC')):
+        #printando o IMC
+        st.text("Seu IMC é {}.".format(bmi))
+
+        #INTERPRETAÇÃO DO IMC
+        if(bmi<16):
+            st.error("Você está extremamente abaixo do peso")
+        elif(bmi>=16 and bmi<18.5):
+            st.warning("Você está abaixo do peso")
+        elif(bmi>=18.5 and bmi<25):
+            st.success("Saudável")
+        elif(bmi>=25 and bmi<30):
+            st.warning("Você está com sobrepeso")
+        elif(bmi>=30):
+            st.error("Você está extremamente com sobrepeso")
