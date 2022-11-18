@@ -1,0 +1,39 @@
+import streamlit as st;
+
+#Título
+st.title("Calculadora")
+
+#Header e SubHeader
+#st.header("alguma coisa")
+st.text("Desenvolvido por: Ivina Lorena")
+
+#st.subheader("Para diagnosticar a obesidade, é preciso começar calculando o Índice de Massa Corporal (IMC).")
+first_number = st.number_input(label="Insira o primeiro valor")
+second_number = st.number_input(label="Insira o segundo valor")
+op = st.radio("Selecione a operação:",('+','-','*','/'))
+if(op == '+'): 
+        try:
+            calc = first_number+second_number
+        except:
+            st.error("Não foi possível identificar os valores")
+elif(op == '-'):
+        try:
+            calc = first_number-second_number
+        except:
+            st.error("Não foi possível identificar os valores")
+elif(op == '*'):       
+        try:
+            calc = first_number*second_number
+        except:
+            st.error("Não foi possível identificar os valores")
+elif(op == '/'):       
+        try:
+            calc = first_number/second_number
+        except:
+            st.error("Não foi possível identificar os valores")
+
+if(st.button('Calcule')):
+        #printando
+        st.text("{}.".format(calc))
+
+       
