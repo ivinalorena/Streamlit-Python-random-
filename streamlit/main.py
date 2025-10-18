@@ -29,11 +29,3 @@ if not st.session_state.logged_in:
             st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/S%C3%ADmbolo_da_UNILAB.png/1022px-S%C3%ADmbolo_da_UNILAB.png")
         else:
             st.error("Credenciais incorretas. Acesso negado.")
-        """ if username == st.secrets["username"] and senha == st.secrets["password"]:
-            st.success("Credenciais corretas. Acesso concedido.")
-            st.write("Bem-vindo ao sistema do grupo de pesquisa!")
-            st.write("Aqui você pode acessar as funcionalidades do sistema.")
-            st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/S%C3%ADmbolo_da_UNILAB.png/1022px-S%C3%ADmbolo_da_UNILAB.png")
-        else:
-            st.error("Credenciais incorretas. Acesso negado.")
-            st.stop() """

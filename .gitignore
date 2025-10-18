@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 .env
 hashed_passwords.pkl
+users_hashed.json
+gerarHashes.py
+generateUsers.py
