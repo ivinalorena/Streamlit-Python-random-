@@ -1,3 +1,5 @@
-*.toml
-*.pyc
+.streamlit/secrets.toml
 __pycache__/
+*.pyc
+.env
+hashed_passwords.pkl
