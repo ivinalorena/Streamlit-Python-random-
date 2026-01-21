@@ -6,3 +6,4 @@ hashed_passwords.pkl
 users_hashed.json
 gerarHashes.py
 generateUsers.py
+.streamlit/secrets.toml
