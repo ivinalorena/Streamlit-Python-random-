@@ -30,7 +30,7 @@ streaming_method = st.radio(
     help="Escolha como mostrar a resposta"
 )
 
-if st.button("Gerar a resposta")
+if st.button("Gerar a resposta"):
     if streaming_method == "Direct(stream=True)":
         with st.spinner(f"Gerando resposta com {model}"):
             stream_generator = Complete(
