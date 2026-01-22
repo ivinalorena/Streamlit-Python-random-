@@ -1,13 +1,6 @@
-""" 
-documentação: https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql#complete
-
-Write streams
-For today's challenge, our goal is to run a Snowflake Cortex LLM using the snowflake.cortex.Complete Python API. '
-'We need to build a Streamlit app that lets a user select a model, enter a prompt, and then stream the response back. '
-'Once that's done, we will display the AI's response in real-time, word by word, as it's being generated. """
 import streamlit as st
-from snowflake.cortex import Complete
 import time
+from snowflake.cortex import Complete
 
 st.title(":material/airwave: Write Streams")
 
@@ -27,7 +20,7 @@ prompt=st.text_area("Insira um prompt: ", example_prompt)
 streaming_method = st.radio(
     "Streaming method: ",
     ["Direct (stream=True)", "Custom Generator"],
-    help="Escolha como mostrar a resposta"
+    help="Choose how to stream the response"
 )
 
 if st.button("Gerar a resposta"):
@@ -59,7 +52,3 @@ if st.button("Gerar a resposta"):
             
 st.divider()
 st.caption("Day 3: Write streams 30 dias de IA")
-
-""" Por que o streaming é importante: Sem streaming, os usuários ficam olhando para uma tela em branco por vários 
-segundos enquanto o LLM gera a resposta completa. Com streaming, eles veem as palavras aparecerem imediatamente, 
-fazendo com que o aplicativo pareça mais rápido e responsivo, mesmo que o tempo total seja o mesmo. """
