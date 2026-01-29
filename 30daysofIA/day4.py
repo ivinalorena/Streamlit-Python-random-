@@ -1,4 +1,5 @@
 """ 
+DOCUMENTAÇÃO: https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_data
 DAY 4: Caching your App
 Armazenando seu aplicativo em cache
 Para o desafio de hoje, nosso objetivo é criar um aplicativo web Streamlit que invoque um Modelo de Linguagem Grande (LLM) 
