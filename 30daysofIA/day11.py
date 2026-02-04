@@ -66,7 +66,7 @@ if prompt := st.chat_input("O que você gostaria de saber?"):
             ])
             full_prompt = f"{conversacao}\n\nAssistant:"
 
-            response = call_llm(prompt)
+            response = call_llm(full_prompt)
         st.markdown(response)
 
     st.session_state.messages.append({"role":"assistant","content": response})
