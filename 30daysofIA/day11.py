@@ -6,7 +6,6 @@ a more polished chatbot experience with visible conversation tracking.
 
 Note: We also add st.rerun() after the assistant's response to ensure the sidebar stats update immediately. """
 import streamlit as st
-import streamlit as st
 import json
 from snowflake.snowpark.functions import ai_complete
 
@@ -31,7 +30,6 @@ def call_llm(prompt_text:str)->str:
 
 st.title(":material/chat: Chatbot com histórico")
 
-
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "assistant", "content": "Olá, eu sou sua IA assistente. Como eu posso ajudar você hoje?"}
@@ -41,23 +39,38 @@ with st.sidebar:
     st.header("Conversation Stats")
     user_msgs = len([m for m in st.session_state.messages if m["role"]== "user"])
     assistant_msgs = len([m for m in st.session_state.messages if m["role"]== "assistant"])
-""" 
+
+    st.metric("Suas mensagens", user_msgs)
+    st.metric("IA respostas", assistant_msgs)
+
+    if st.button("Limpar histórico"):
+        st.session_state.messages = [
+        {"role": "assistant", "content": "Olá, eu sou sua IA assistente. Como eu posso ajudar você hoje?"}
+        ]
+        st.rerun()
+        
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.write(message("content"))
+        st.markdown(message["content"])
 
 if prompt := st.chat_input("O que você gostaria de saber?"):
     st.session_state.messages.append({"role":"user", "content":prompt})
-
     with st.chat_message("user"):
-        st.write(prompt)
+        st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        response = call_llm(prompt)
-        st.write(response)
+        with st.spinner("Pensando..."):
+            conversacao="\n\n".join([
+                f"{'User' if msg['role'] == 'user' else 'Assistant'}: {msg['content']}"
+                for msg in st.session_state.messages
+            ])
+            full_prompt = f"{conversacao}\n\nAssistant:"
+
+            response = call_llm(prompt)
+        st.markdown(response)
 
     st.session_state.messages.append({"role":"assistant","content": response})
- """
+    st.rerun()
     
 st.divider()
 st.caption("Day 11: Displaying Chat History | 30 Days of AI")
