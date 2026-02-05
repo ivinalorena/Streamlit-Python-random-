@@ -29,5 +29,52 @@ def call_llm(prompt_text:str)->str:
 
 st.title(":material/chat: Chatbot with Streaming")
 
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Olá, eu sou sua IA assistente. Como eu posso ajudar você hoje?"}
+    ]
+
+with st.sidebar:
+    st.header("Conversation Stats")
+    user_msgs = len([m for m in st.session_state.messages if m["role"]== "user"])
+    assistant_msgs = len([m for m in st.session_state.messages if m["role"]== "assistant"])
+
+    st.metric("Suas mensagens", user_msgs)
+    st.metric("IA respostas", assistant_msgs)
+
+    if st.button("Limpar histórico"):
+        st.session_state.messages = [
+        {"role": "assistant", "content": "Olá, eu sou sua IA assistente. Como eu posso ajudar você hoje?"}
+        ]
+        st.rerun()
+        
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+if prompt := st.chat_input("O que você gostaria de saber?"):
+    st.session_state.messages.append({"role":"user", "content":prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    conversacao="\n\n".join([
+        f"{'User' if msg['role'] == 'user' else 'Assistant'}: {msg['content']}"
+        for msg in st.session_state.messages
+    ])
+    full_prompt = f"{conversacao}\n\nAssistant:"
+
+    def stream_generator():
+        response_text = call_llm(full_prompt)
+        for word in response_text.split(" "):
+            yield word + " "
+            time.sleep(0.02)
+
+    with st.chat_message("assistant"):
+        with st.spinner("Pensando..."):
+            response = st.write_stream(stream_generator)
+
+    st.session_state.messages.append({"role":"assistant","content": response})
+    st.rerun()
+
 st.divider()
 st.caption("Day 12: Streaming Responses | 30 Days of AI")
